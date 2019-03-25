@@ -14,8 +14,11 @@ export class Transaction {
   @Column({ type: "enum", enum: TransactionType })
   type: TransactionType;
 
-  @Column()
+  @Column('double')
   amount: number;
+
+  @Column()
+  particular: string;
 
   @OneToOne(type => Ledger)
   @JoinColumn()
