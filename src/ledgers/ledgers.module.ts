@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LedgersController } from './ledgers.controller';
+import { LedgersControllerV1 } from './ledgers.controller.v1';
 import { LedgersService } from './ledgers.service';
 import { TransactionsService } from './transactions.service';
 import { LedgersRepository } from './ledgers.repository';
@@ -12,13 +12,13 @@ import { Transaction } from './transaction.entity';
   imports: [
       TypeOrmModule.forFeature([Ledger]),
       TypeOrmModule.forFeature([Transaction]),
+      TypeOrmModule.forFeature([LedgersRepository]),
+      TypeOrmModule.forFeature([TransactionsRepository]),
     ],
   providers: [
     LedgersService,
     TransactionsService,
-    LedgersRepository,
-    TransactionsRepository
   ],
-  controllers: [LedgersController],
+  controllers: [LedgersControllerV1],
 })
 export class LedgersModule {}

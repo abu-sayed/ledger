@@ -2,8 +2,8 @@ import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe } from '@
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 
-@Controller('users')
-export class UsersController {
+@Controller('v1/users')
+export class UsersControllerV1 {
   constructor(private readonly usersService: UsersService) {}
 
   @Get()
