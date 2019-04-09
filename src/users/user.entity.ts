@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
+import { Exclude } from 'class-transformer';
 import { ApiModelProperty } from '@nestjs/swagger';
 
 @Entity()
@@ -21,5 +22,6 @@ export class User {
   @Column()
   @IsNotEmpty()
   @ApiModelProperty()
+  @Exclude({ toPlainOnly: true })
   password: string;
 }

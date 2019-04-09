@@ -1,9 +1,22 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  ParseIntPipe,
+  NotFoundException,
+  UseInterceptors,
+  ClassSerializerInterceptor
+} from '@nestjs/common';
 import { ApiOkResponse, ApiUseTags } from '@nestjs/swagger'
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 
 @Controller('v1/users')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UsersControllerV1 {
   constructor(private readonly usersService: UsersService) {}
 
@@ -18,7 +31,11 @@ export class UsersControllerV1 {
   @ApiUseTags('users')
   @ApiOkResponse({type: User})
   async get(@Param('id') id: number): Promise<User> {
-    return await this.usersService.get(id);
+    const user: User = await this.usersService.get(id);
+    if (!user) {
+      throw new NotFoundException();
+    }
+    return user;
   }
 
   @Post()
